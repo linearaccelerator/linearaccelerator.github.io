@@ -1,5 +1,18 @@
 body {
+  background-color: #222222;
   font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans, Helvetica Neue, Arial, sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.info-right {
+  justify-content: flex-end;
+}
+
+#coin-display {
+  color: goldenrod;
 }
 
 /*# sourceMappingURL=style.css.map */
