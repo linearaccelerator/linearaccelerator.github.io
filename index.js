@@ -21,7 +21,7 @@ function mine() {
     let pickaxe = pickaxes.find(p => p.name === save.pickaxe);
     let gain = pickaxe.power;
     gain += Number((Math.random()*pickaxe.maxBonus).toFixed(2));
-    gain += 0.2 * save.upgrades.muscle[0]
+    gain += 0.25 * save.upgrades.muscle[0]
     save.money += gain;
     updateText()
 }
@@ -43,4 +43,4 @@ function updateText() {
     document.getElementById("muscle-button").innerText = `(${save.upgrades.muscle[0]}) ${save.upgrades.muscle[1].toFixed(2)} coins`;
 }
 
-setInterval(() => updateText(), 500)
+setInterval(() => updateText(), 50)
