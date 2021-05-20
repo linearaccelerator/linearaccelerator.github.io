@@ -1,6 +1,6 @@
 let defaultSave = {
     money: 0,
-    upgrades: [[0, 15], [0, 100], [0, 500]]
+    upgrades: [[0, 15], [0, 100], [0, 500], [0, 2500], [0, 12500]]
 }
 /**
  * @type {defaultSave}
@@ -15,26 +15,11 @@ function mine() {
 }
 
 function buy(itemType){
-    switch(itemType){
-        case 1:
-            if(save.money < save.upgrades[0][1]) return;
-            save.money -= save.upgrades[0][1];
-            save.upgrades[0][0]++;
-            save.upgrades[0][1] *= 1.15;
-            break;
-        case 2:
-            if(save.money < save.upgrades[1][1]) return;
-            save.money -= save.upgrades[1][1];
-            save.upgrades[1][0]++;
-            save.upgrades[1][1] *= 1.2;
-            break;
-        case 3:
-            if(save.money < save.upgrades[2][1]) return;
-            save.money -= save.upgrades[2][1];
-            save.upgrades[2][0]++;
-            save.upgrades[2][1] *= 1.25;
-            break;
-    }
+    let cost = save.upgrades[itemType - 1][1];
+    if(save.money < cost) return;
+    save.money -= cost;
+    save.upgrades[itemType - 1][0]++;
+    save.upgrades[itemType - 1][1] *= 1.10 + (0.05 * itemType);
     updateText();
 }
 
@@ -43,11 +28,15 @@ function updateText() {
     document.getElementById("auto-miner-btn").innerText = `(${save.upgrades[0][0].toFixed(2)}) ${save.upgrades[0][1].toFixed(2)} coins`;
     document.getElementById("gen-1-btn").innerText = `(${save.upgrades[1][0].toFixed(2)}) ${save.upgrades[1][1].toFixed(2)} coins`;
     document.getElementById("gen-2-btn").innerText = `(${save.upgrades[2][0].toFixed(2)}) ${save.upgrades[2][1].toFixed(2)} coins`;
+    document.getElementById("gen-3-btn").innerText = `(${save.upgrades[3][0].toFixed(2)}) ${save.upgrades[3][1].toFixed(2)} coins`;
+    document.getElementById("gen-4-btn").innerText = `(${save.upgrades[4][0].toFixed(2)}) ${save.upgrades[4][1].toFixed(2)} coins`;
 }
 
 setInterval(() => {
     save.money += save.upgrades[0][0] * .4 / fps;
     save.upgrades[0][0] += save.upgrades[1][0] * .1 / fps;
     save.upgrades[1][0] += save.upgrades[2][0] * .1 / fps;
+    save.upgrades[2][0] += save.upgrades[3][0] * .1 / fps;
+    save.upgrades[3][0] += save.upgrades[4][0] * .1 / fps;
     updateText();
 }, 1000 / fps);
